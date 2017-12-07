@@ -1,7 +1,0 @@
-C:\Projects\Euler\Euler.Algorithms\obj\Debug\Euler.Algorithms.csprojResolveAssemblyReference.cache
-C:\Projects\Euler\Euler.Algorithms\bin\Debug\Euler.Algorithms.dll
-C:\Projects\Euler\Euler.Algorithms\bin\Debug\Euler.Algorithms.pdb
-C:\Projects\Euler\Euler.Algorithms\bin\Debug\Euler.Common.dll
-C:\Projects\Euler\Euler.Algorithms\bin\Debug\Euler.Common.pdb
-C:\Projects\Euler\Euler.Algorithms\obj\Debug\Euler.Algorithms.dll
-C:\Projects\Euler\Euler.Algorithms\obj\Debug\Euler.Algorithms.pdb

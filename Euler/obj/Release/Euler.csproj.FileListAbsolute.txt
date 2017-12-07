@@ -1,6 +1,0 @@
-C:\Projects\Euler\Euler\bin\Release\Euler.exe.config
-C:\Projects\Euler\Euler\bin\Release\Euler.exe
-C:\Projects\Euler\Euler\bin\Release\Euler.pdb
-C:\Projects\Euler\Euler\obj\Release\Euler.exe
-C:\Projects\Euler\Euler\obj\Release\Euler.pdb
-C:\Projects\Euler\Euler\obj\Release\Euler.csprojResolveAssemblyReference.cache

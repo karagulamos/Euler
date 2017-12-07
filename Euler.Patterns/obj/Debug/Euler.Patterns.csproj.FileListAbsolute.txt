@@ -1,5 +1,0 @@
-C:\Projects\Euler\Euler.Patterns\bin\Debug\Euler.Patterns.dll
-C:\Projects\Euler\Euler.Patterns\bin\Debug\Euler.Patterns.pdb
-C:\Projects\Euler\Euler.Patterns\obj\Debug\Euler.Patterns.dll
-C:\Projects\Euler\Euler.Patterns\obj\Debug\Euler.Patterns.pdb
-C:\Projects\Euler\Euler.Patterns\obj\Debug\Euler.Patterns.csprojResolveAssemblyReference.cache

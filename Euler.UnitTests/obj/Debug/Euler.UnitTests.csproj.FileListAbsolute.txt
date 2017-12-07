@@ -1,7 +1,0 @@
-C:\Projects\Euler\Euler.UnitTests\bin\Debug\Euler.UnitTests.dll
-C:\Projects\Euler\Euler.UnitTests\bin\Debug\Euler.UnitTests.pdb
-C:\Projects\Euler\Euler.UnitTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Projects\Euler\Euler.UnitTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
-C:\Projects\Euler\Euler.UnitTests\obj\Debug\Euler.UnitTests.dll
-C:\Projects\Euler\Euler.UnitTests\obj\Debug\Euler.UnitTests.pdb
-C:\Projects\Euler\Euler.UnitTests\obj\Debug\Euler.UnitTests.csprojResolveAssemblyReference.cache
