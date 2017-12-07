@@ -1,0 +1,5 @@
+C:\Projects\Euler\Euler.Concurrency\bin\Debug\Euler.Concurrency.dll
+C:\Projects\Euler\Euler.Concurrency\bin\Debug\Euler.Concurrency.pdb
+C:\Projects\Euler\Euler.Concurrency\obj\Debug\Euler.Concurrency.csprojResolveAssemblyReference.cache
+C:\Projects\Euler\Euler.Concurrency\obj\Debug\Euler.Concurrency.dll
+C:\Projects\Euler\Euler.Concurrency\obj\Debug\Euler.Concurrency.pdb

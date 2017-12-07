@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler", "Euler\Euler.csproj", "{D88E0571-6067-43BC-AFA6-9A14B292F919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.UnitTests", "Euler.UnitTests\Euler.UnitTests.csproj", "{3E1B96E8-A2D2-4055-9AD7-FE69DCC06BE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.Patterns", "Euler.Patterns\Euler.Patterns.csproj", "{A9AC561B-33C2-49E4-8F5E-BC4AB7DA89A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.Common", "Euler.Common\Euler.Common.csproj", "{271176E3-91BB-4D96-9FC6-C1CFEAD7206E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.Algorithms", "Euler.Algorithms\Euler.Algorithms.csproj", "{4D64E600-937B-4DDB-9CD8-55705DEC2B88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.Concurrency", "Euler.Concurrency\Euler.Concurrency.csproj", "{1ED05D75-01D6-41B1-8035-693E5598A28A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D88E0571-6067-43BC-AFA6-9A14B292F919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D88E0571-6067-43BC-AFA6-9A14B292F919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D88E0571-6067-43BC-AFA6-9A14B292F919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D88E0571-6067-43BC-AFA6-9A14B292F919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E1B96E8-A2D2-4055-9AD7-FE69DCC06BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1B96E8-A2D2-4055-9AD7-FE69DCC06BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E1B96E8-A2D2-4055-9AD7-FE69DCC06BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E1B96E8-A2D2-4055-9AD7-FE69DCC06BE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9AC561B-33C2-49E4-8F5E-BC4AB7DA89A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9AC561B-33C2-49E4-8F5E-BC4AB7DA89A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9AC561B-33C2-49E4-8F5E-BC4AB7DA89A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9AC561B-33C2-49E4-8F5E-BC4AB7DA89A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{271176E3-91BB-4D96-9FC6-C1CFEAD7206E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{271176E3-91BB-4D96-9FC6-C1CFEAD7206E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{271176E3-91BB-4D96-9FC6-C1CFEAD7206E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{271176E3-91BB-4D96-9FC6-C1CFEAD7206E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D64E600-937B-4DDB-9CD8-55705DEC2B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D64E600-937B-4DDB-9CD8-55705DEC2B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D64E600-937B-4DDB-9CD8-55705DEC2B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D64E600-937B-4DDB-9CD8-55705DEC2B88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED05D75-01D6-41B1-8035-693E5598A28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED05D75-01D6-41B1-8035-693E5598A28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED05D75-01D6-41B1-8035-693E5598A28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED05D75-01D6-41B1-8035-693E5598A28A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

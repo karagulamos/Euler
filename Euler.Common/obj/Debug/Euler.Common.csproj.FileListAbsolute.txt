@@ -1,0 +1,5 @@
+C:\Projects\Euler\Euler.Common\bin\Debug\Euler.Common.dll
+C:\Projects\Euler\Euler.Common\bin\Debug\Euler.Common.pdb
+C:\Projects\Euler\Euler.Common\obj\Debug\Euler.Common.csprojResolveAssemblyReference.cache
+C:\Projects\Euler\Euler.Common\obj\Debug\Euler.Common.dll
+C:\Projects\Euler\Euler.Common\obj\Debug\Euler.Common.pdb
