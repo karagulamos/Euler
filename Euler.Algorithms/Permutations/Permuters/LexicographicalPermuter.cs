@@ -41,13 +41,13 @@ namespace Euler.Algorithms.Permutations.Permuters
 
             var posY = negative;
 
-            for (var y = posX > negative ? posX : int.MaxValue; y < elements.Length; ++y)
+            for (var y = posX != negative ? posX : elements.Length; y < elements.Length; ++y)
             {
                 if (elements[posX] < elements[y])
                     posY = y;
             }
 
-            if (posY > negative)
+            if (posY != negative)
             {
                 elements.Swap(posX, posY);
             }
