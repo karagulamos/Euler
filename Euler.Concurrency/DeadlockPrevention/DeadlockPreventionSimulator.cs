@@ -2,45 +2,45 @@
 // Date:
 // Comment:
 
+using Euler.Concurrency.PoormansTPL;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace Euler.Concurrency
+namespace Euler.Concurrency.DeadlockPrevention
 {
     public class DeadlockPreventionSimulator
     {
-        private readonly Task[] _concurrentTasks;
+        private readonly PoormansTask[] _concurrentActors;
 
         public DeadlockPreventionSimulator(int numberOfTasks)
         {
-            _concurrentTasks = new Task[numberOfTasks];
+            _concurrentActors = new PoormansTask[numberOfTasks];
             var resourceMonitors = new object[numberOfTasks];
 
             for (var idx = 0; idx < numberOfTasks; ++idx)
             {
                 var firstResourceId = idx;
-                var secondResourceId = (firstResourceId + 1) % numberOfTasks;
+                var secondResourceId = (idx + 1) % numberOfTasks;
 
                 resourceMonitors[firstResourceId] = new object();
 
                 // Uncomment the conditional block below to simulate a deadlock
                 if ((firstResourceId & 1) == 0)
                 {
-                    _concurrentTasks[idx] = new Task(() =>
-                        {
-                            var task = new ConcurrentTask(secondResourceId, firstResourceId, resourceMonitors);
-                            task.Run();
-                        }
+                    _concurrentActors[idx] = new PoormansTask(() =>
+                       {
+                           var actor = new Actor(secondResourceId, firstResourceId, resourceMonitors);
+                           actor.Execute();
+                       }
                     );
 
                     continue;
                 }
 
-                _concurrentTasks[idx] = new Task(() =>
+                _concurrentActors[idx] = new PoormansTask (() =>
                     {
-                        var task = new ConcurrentTask(firstResourceId, secondResourceId, resourceMonitors);
-                        task.Run();
+                        var actor = new Actor(firstResourceId, secondResourceId, resourceMonitors);
+                        actor.Execute();
                     }
                 );
             }
@@ -50,28 +50,28 @@ namespace Euler.Concurrency
 
         public void Run()
         {
-            foreach (var task in _concurrentTasks)
+            foreach (var task in _concurrentActors)
             {
                 task.Start();
             }
 
-            Task.WaitAll(_concurrentTasks);
+            PoormansTask.WaitAll(_concurrentActors);
         }
 
-        private class ConcurrentTask
+        private class Actor
         {
             private readonly int _firstResourceId;
             private readonly int _secondResourceId;
             private readonly object[] _resourceMonitors;
 
-            public ConcurrentTask(int firstResourceId, int secondResourceId, object[] resourceMonitors)
+            public Actor(int firstResourceId, int secondResourceId, object[] resourceMonitors)
             {
                 _firstResourceId = firstResourceId;
                 _secondResourceId = secondResourceId;
                 _resourceMonitors = resourceMonitors;
             }
 
-            public void Run()
+            public void Execute()
             {
                 while (true)
                 {
@@ -99,7 +99,7 @@ namespace Euler.Concurrency
                             Console.WriteLine();
                         }
 
-                        Message($"Resources {_firstResourceId} and {_secondResourceId} successful acquired.");
+                        Message($"Resources {_firstResourceId} and {_secondResourceId} successfully acquired.");
                     }
                 }
             }

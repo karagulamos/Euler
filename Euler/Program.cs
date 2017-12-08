@@ -1,5 +1,5 @@
 ﻿using Euler.Algorithms.Permutations;
-using Euler.Concurrency;
+using Euler.Concurrency.DeadlockPrevention;
 using Euler.Patterns.Bridge.Drivers;
 using Euler.Patterns.Proxy.Payment;
 using Euler.Patterns.Proxy.Payment.Entities;
@@ -15,17 +15,17 @@ namespace Euler
         {
             //// Algorithms ////
 
-            RunPermutationExample();
+            //RunPermutationExample();
 
             ///// Design Patterns ////
 
             // RunConnectionDriverBridgeExample();
 
-            // RunPaymentProxyExample();
+            //RunPaymentProxyExample();
 
             //// Concurreny ////
 
-            // RunDeadlockPreventionSimulationExample();
+            RunDeadlockPreventionSimulationExample();
 
             Console.ReadLine();
         }
