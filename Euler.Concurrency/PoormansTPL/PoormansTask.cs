@@ -20,7 +20,7 @@ namespace Euler.Concurrency.PoormansTPL
         {
             this.CreateNewThreadObject(action);
         }
-        
+
         public PoormansAwaiter GetAwaiter()
         {
             return new PoormansAwaiter(this);
@@ -79,7 +79,7 @@ namespace Euler.Concurrency.PoormansTPL
             return WaitAny(tasks, false);
         }
 
-        public static int WaitAny(PoormansTask[] tasks, bool cancelRemainingTasks)
+        public static int WaitAny(PoormansTask[] tasks, bool cancelUnfinishedTasks)
         {
             var sychronizer = PoormansSynchronizer.Get();
 
@@ -91,7 +91,7 @@ namespace Euler.Concurrency.PoormansTPL
                 completedTaskIndex = Array.FindIndex(tasks, t => t.HasCompleted());
             }
 
-            if (cancelRemainingTasks)
+            if (cancelUnfinishedTasks)
             {
                 foreach (var task in tasks)
                 {
@@ -140,7 +140,8 @@ namespace Euler.Concurrency.PoormansTPL
                 {
                     sychronizer.Signal();
                 }
-            }) { IsBackground = true };
+            })
+            { IsBackground = true };
 
         }
     }
@@ -166,26 +167,6 @@ namespace Euler.Concurrency.PoormansTPL
         public new PoormansAwaiter<TResult> GetAwaiter()
         {
             return new PoormansAwaiter<TResult>(this);
-        }
-
-        // The WaitAll & WaitAny implementations below are static shadows of the base implementation
-        // used to suppress Resharper / IDE warnings around co-variant conversions between generic
-        // and non-generic invocations of these methods in client code. Nevertheless, this works just
-        // fine in our particular case.
-
-        public static void WaitAll(params PoormansTask<TResult>[] parallelTasks)
-        {
-            PoormansTask.WaitAll(parallelTasks);
-        }
-
-        public static int WaitAny(params PoormansTask<TResult>[] parallelTasks)
-        {
-            return PoormansTask.WaitAny(parallelTasks);
-        }
-
-        public static int WaitAny(PoormansTask<TResult>[] parallelTasks, bool cancelRemainingTasks)
-        {
-            return PoormansTask.WaitAny(parallelTasks, cancelRemainingTasks);
         }
     }
 }
