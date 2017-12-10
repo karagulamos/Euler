@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Euler.Concurrency.PoormansTPL
 {
-    internal class PoormansTask
+    public class PoormansTask
     {
         private Thread _worker;
         private readonly List<Exception> _exceptions = new List<Exception>();
@@ -18,10 +18,10 @@ namespace Euler.Concurrency.PoormansTPL
 
         public PoormansTask(Action action)
         {
-            this.CreateNewThreadObject(action);
+            this.CreateTask(action);
         }
 
-        public PoormansAwaiter GetAwaiter()
+        internal PoormansAwaiter GetAwaiter()
         {
             return new PoormansAwaiter(this);
         }
@@ -74,6 +74,7 @@ namespace Euler.Concurrency.PoormansTPL
             _worker.Join();
             this.ThrowAggregateExceptionIfFaulted();
         }
+
         public static int WaitAny(params PoormansTask[] tasks)
         {
             return WaitAny(tasks, false);
@@ -121,7 +122,7 @@ namespace Euler.Concurrency.PoormansTPL
             }
         }
 
-        protected void CreateNewThreadObject(Action action)
+        protected void CreateTask(Action action)
         {
             var sychronizer = PoormansSynchronizer.Get();
 
@@ -146,13 +147,13 @@ namespace Euler.Concurrency.PoormansTPL
         }
     }
 
-    internal sealed class PoormansTask<TResult> : PoormansTask
+    public sealed class PoormansTask<TResult> : PoormansTask
     {
         private TResult _result;
 
         public PoormansTask(Func<TResult> action)
         {
-            base.CreateNewThreadObject(() => _result = action());
+            base.CreateTask(() => _result = action());
         }
 
         public TResult Result
@@ -164,7 +165,7 @@ namespace Euler.Concurrency.PoormansTPL
             }
         }
 
-        public new PoormansAwaiter<TResult> GetAwaiter()
+        internal new PoormansAwaiter<TResult> GetAwaiter()
         {
             return new PoormansAwaiter<TResult>(this);
         }

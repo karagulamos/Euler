@@ -1,5 +1,6 @@
 ﻿using Euler.Algorithms.Permutations;
 using Euler.Concurrency.DeadlockPrevention;
+using Euler.DataStructures.Heap;
 using Euler.Patterns.Bridge.Drivers;
 using Euler.Patterns.Proxy.Payment;
 using Euler.Patterns.Proxy.Payment.Entities;
@@ -13,19 +14,21 @@ namespace Euler
     {
         public static void Main()
         {
-            //// Algorithms ////
+            //******** Data Structures & Algorithms ********//
 
-            //RunPermutationExample();
+            // RunPermutationExample();
 
-            ///// Design Patterns ////
+            RunHeapSortExample();
+
+            //******** Concurreny ********//
+
+            //RunDeadlockPreventionSimulationExample();
+
+            //******** Design Patterns ********//
 
             // RunConnectionDriverBridgeExample();
 
-            //RunPaymentProxyExample();
-
-            //// Concurreny ////
-
-            RunDeadlockPreventionSimulationExample();
+            // RunPaymentProxyExample();
 
             Console.ReadLine();
         }
@@ -36,6 +39,35 @@ namespace Euler
             permuter.Execute("2142");
 
             Console.WriteLine();
+        }
+
+        private static void RunHeapSortExample()
+        {
+            Heap<int> heap = new Heap<int>(new Heap<int>.MinHeap());
+
+            heap.Push(new List<int> { 1, 5, 1, 80, 45, 1, 1, 2, 3, 4, 5, 90, 4, 2, 54, 13 });
+
+            Console.WriteLine("Heap");
+            Console.WriteLine("====");
+            Console.WriteLine(heap);
+            
+            Console.WriteLine();
+
+            Console.WriteLine("Sorted");
+            Console.WriteLine("======");
+
+            while (heap.Size > 0)
+            {
+                Console.Write($"{heap.Peek()} ");
+                heap.Pop();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("After Sorting");
+            Console.WriteLine("=============");
+            Console.WriteLine(heap.Size == 0 ? "Empty" : heap.ToString());
         }
 
         private static void RunDeadlockPreventionSimulationExample()
@@ -84,7 +116,7 @@ namespace Euler
             // this phase in order to reduce latency, increase throughput and promote 
             // correctness. Also, we aren't taking advantage of .NET's TPL APIs.
 
-            IProcessor processorProxy = ProcessorProxy.Get();           
+            IProcessor processorProxy = ProcessorProxy.Get();
 
             IEnumerable<Transaction> transactions = LoadPendingTransactionsFromDb();
 

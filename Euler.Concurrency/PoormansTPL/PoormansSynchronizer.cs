@@ -8,7 +8,7 @@ namespace Euler.Concurrency.PoormansTPL
         private volatile bool _signaled;
         private readonly object _internalLocker = new object();
 
-        private static readonly Lazy<PoormansSynchronizer> LazyInstance = new Lazy<PoormansSynchronizer>(() => new PoormansSynchronizer(), true);
+        private static readonly Lazy<PoormansSynchronizer> LazyInstance = new Lazy<PoormansSynchronizer>(() => new PoormansSynchronizer());
 
         private PoormansSynchronizer() {}
 

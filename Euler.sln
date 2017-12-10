@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.Algorithms", "Euler.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.Concurrency", "Euler.Concurrency\Euler.Concurrency.csproj", "{1ED05D75-01D6-41B1-8035-693E5598A28A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euler.DataStructures", "Euler.DataStructures\Euler.DataStructures.csproj", "{7BC7D3B7-C795-471C-A689-093B4CBF35C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1ED05D75-01D6-41B1-8035-693E5598A28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED05D75-01D6-41B1-8035-693E5598A28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ED05D75-01D6-41B1-8035-693E5598A28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BC7D3B7-C795-471C-A689-093B4CBF35C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BC7D3B7-C795-471C-A689-093B4CBF35C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BC7D3B7-C795-471C-A689-093B4CBF35C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BC7D3B7-C795-471C-A689-093B4CBF35C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
