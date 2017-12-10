@@ -143,7 +143,6 @@ namespace Euler.Concurrency.PoormansTPL
                 }
             })
             { IsBackground = true };
-
         }
     }
 

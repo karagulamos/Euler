@@ -29,23 +29,21 @@ namespace Euler.DataStructures.Heap
                 Push(element);
         }
 
-        public void Push(TKey element)
+        public void Push(TKey itemToInsert)
         {
-            _heap.Add(element);
+            _heap.Add(itemToInsert);
 
-            var index = _heap.Count - 1;
-            var temp = _heap[index];
+            var childIndex = _heap.Count - 1;
+            var parentIndex = (childIndex - 1) >> 1;
 
-            var parent = (index - 1) >> 1;
-
-            while (index > 0 && !_heapCondition.IsValid(_heap[parent], temp))
+            while (childIndex > 0 && !_heapCondition.IsValid(_heap[parentIndex], itemToInsert))
             {
-                _heap[index] = _heap[parent];
-                index = parent;
-                parent = (parent - 1) >> 1;
+                _heap[childIndex] = _heap[parentIndex];
+                childIndex = parentIndex;
+                parentIndex = (parentIndex - 1) >> 1;
             }
 
-            _heap[index] = temp;
+            _heap[childIndex] = itemToInsert;
         }
 
         public void Pop()
@@ -58,29 +56,29 @@ namespace Euler.DataStructures.Heap
                 );
             }
 
-            var index = 0;
-            _heap[index] = _heap[_heap.Count - 1];
+            var parentIndex = 0;
+            _heap[parentIndex] = _heap[_heap.Count - 1];
 
-            TKey temp = _heap[index];
+            TKey itemToReposition = _heap[parentIndex];
 
             var midpoint = _heap.Count >> 1;
 
-            while (index < midpoint)
+            while (parentIndex < midpoint)
             {
-                int left = (index << 1) + 1, right = left + 1;
+                int leftChildIndex = (parentIndex << 1) + 1, rightChildIndex = leftChildIndex + 1;
 
-                var currentIndex = 
-                    right < _heap.Count && !_heapCondition.IsValid(_heap[left], _heap[right]) 
-                    ? right : left;
+                var selectedChildIndex = 
+                    rightChildIndex < _heap.Count && !_heapCondition.IsValid(_heap[leftChildIndex], _heap[rightChildIndex]) 
+                    ? rightChildIndex : leftChildIndex;
 
-                if (_heapCondition.IsValid(temp, _heap[currentIndex]))
+                if (_heapCondition.IsValid(itemToReposition, _heap[selectedChildIndex]))
                     break;
 
-                _heap[index] = _heap[currentIndex];
-                index = currentIndex;
+                _heap[parentIndex] = _heap[selectedChildIndex];
+                parentIndex = selectedChildIndex;
             }
 
-            _heap[index] = temp;
+            _heap[parentIndex] = itemToReposition;
 
             _heap.RemoveAt(_heap.Count - 1);
         }
@@ -109,7 +107,7 @@ namespace Euler.DataStructures.Heap
         {
             public bool IsValid(TKey first, TKey second)
             {
-                return second.CompareTo(first) < 0;
+                return first.CompareTo(second) >= 0;
             }
         }
 
@@ -117,7 +115,7 @@ namespace Euler.DataStructures.Heap
         {
             public bool IsValid(TKey first, TKey second)
             {
-                return second.CompareTo(first) >= 0;
+                return first.CompareTo(second) < 0;
             }
         }
     }
