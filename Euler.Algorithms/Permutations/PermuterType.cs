@@ -5,6 +5,7 @@ namespace Euler.Algorithms.Permutations
         Default,
         Lexicographical,
         RecursiveInplaceSwap,
+        BreadthFirstPrefixSearch,
         RecursiveBooleanBacktracking,
         RecursiveBufferedBacktracking
     }

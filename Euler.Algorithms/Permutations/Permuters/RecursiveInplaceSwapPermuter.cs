@@ -11,8 +11,7 @@ namespace Euler.Algorithms.Permutations.Permuters
     {
         public void Execute(string pattern)
         {
-            var elements = pattern.ToCharArray();
-            Permute(elements, 0);
+            Permute(pattern.ToCharArray(), 0);
         }
 
         private static void Permute(char[] elements, int k)

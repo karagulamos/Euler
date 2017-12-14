@@ -18,16 +18,16 @@ namespace Euler.Algorithms.Permutations.Permuters
 
             Console.WriteLine(elements);
 
-            var nPrime = Factorial(pattern.Length);
+            var nFactorial = Factorial(pattern.Length);
 
-            for (long idx = 1; idx < nPrime; ++idx)
+            for (long idx = 1; idx < nFactorial; ++idx)
             {
                 var permutation = GetNextLexicographicalOrderingOf(elements);
                 Console.WriteLine(permutation);
             }
         }
         
-        private static string GetNextLexicographicalOrderingOf(char[] elements)
+        private static char[] GetNextLexicographicalOrderingOf(char[] elements)
         {
             const int negative = -1;
 
@@ -54,7 +54,7 @@ namespace Euler.Algorithms.Permutations.Permuters
 
             elements.Reverse(posX + 1);
 
-            return new string(elements);
+            return elements;
         }
 
         private static long Factorial(long n)

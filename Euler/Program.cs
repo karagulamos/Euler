@@ -16,9 +16,9 @@ namespace Euler
         {
             //******** Data Structures & Algorithms ********//
 
-            // RunPermutationExample();
+            RunPermutationExample();
 
-            RunHeapSortExample();
+            //RunHeapSortExample();
 
             //******** Concurreny ********//
 
@@ -35,8 +35,8 @@ namespace Euler
 
         private static void RunPermutationExample()
         {
-            IPermuter permuter = PermuterFactory.Get(PermutationType.Lexicographical);
-            permuter.Execute("2142");
+            IPermuter permuter = PermuterFactory.Get(PermutationType.BreadthFirstPrefixSearch);
+            permuter.Execute("12345");
 
             Console.WriteLine();
         }

@@ -1,5 +1,5 @@
-using System;
 using Euler.Algorithms.Permutations.Permuters;
+using System;
 
 namespace Euler.Algorithms.Permutations
 {
@@ -15,11 +15,12 @@ namespace Euler.Algorithms.Permutations
                     return new LexicographicalPermuter();
                 case PermutationType.RecursiveInplaceSwap:
                     return new RecursiveInplaceSwapPermuter();
+                case PermutationType.BreadthFirstPrefixSearch:
+                    return new BreadthFirstPrefixSearchPermuter();
                 case PermutationType.RecursiveBooleanBacktracking:
                     return new RecursiveBooleanBacktrackingPermuter();
                 case PermutationType.RecursiveBufferedBacktracking:
                     return new RecursiveBufferedBacktrackingPermuter();
-              
                 default:
                     throw new ArgumentOutOfRangeException(nameof(permutationType), permutationType, null);
             }

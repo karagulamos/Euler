@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Permutations\IPermuter.cs" />
     <Compile Include="Permutations\PermuterFactory.cs" />
+    <Compile Include="Permutations\Permuters\BreadthFirstPrefixSearchPermuter.cs" />
     <Compile Include="Permutations\Permuters\DefaultPermuter.cs" />
     <Compile Include="Permutations\Permuters\LexicographicalPermuter.cs" />
     <Compile Include="Permutations\Permuters\RecursiveBooleanBacktrackingPermuter.cs" />
