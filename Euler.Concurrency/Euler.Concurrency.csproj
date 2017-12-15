@@ -44,6 +44,8 @@
     <Compile Include="PoormansTPL\PoormansAwaiter.cs" />
     <Compile Include="PoormansTPL\PoormansSynchronizer.cs" />
     <Compile Include="PoormansTPL\PoormansTask.cs" />
+    <Compile Include="PoormansTPL\PoormansThreadPool.cs" />
+    <Compile Include="PoormansTPL\PoormansWorkerThread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

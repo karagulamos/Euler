@@ -4,21 +4,26 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace Euler.Concurrency.PoormansTPL
 {
     public class PoormansTask
     {
-        private Thread _worker;
+        private Action _action;
         private readonly List<Exception> _exceptions = new List<Exception>();
         private readonly object _exceptionMonitor = new object();
+        private readonly PoormansSynchronizer _synchronizer = PoormansSynchronizer.Get();
 
         protected PoormansTask() { }
 
         public PoormansTask(Action action)
         {
-            this.CreateTask(action);
+            _action = action;
+        }
+
+        protected void SetTask(Action action)
+        {
+            _action = action;
         }
 
         internal PoormansAwaiter GetAwaiter()
@@ -37,7 +42,7 @@ namespace Euler.Concurrency.PoormansTPL
 
         public void Start()
         {
-            _worker.Start();
+            CreateTask(_action);
         }
 
         public static PoormansTask Run(Action action)
@@ -71,7 +76,7 @@ namespace Euler.Concurrency.PoormansTPL
 
         public void Wait()
         {
-            _worker.Join();
+            _synchronizer.Wait();
             this.ThrowAggregateExceptionIfFaulted();
         }
 
@@ -82,36 +87,25 @@ namespace Euler.Concurrency.PoormansTPL
 
         public static int WaitAny(PoormansTask[] tasks, bool cancelUnfinishedTasks)
         {
-            var sychronizer = PoormansSynchronizer.Get();
+            var synchronizer = PoormansSynchronizer.Get();
 
             int completedTaskIndex = -1;
 
             while (completedTaskIndex < 0)
             {
-                sychronizer.WaitAny();
-                completedTaskIndex = Array.FindIndex(tasks, t => t.HasCompleted());
+                synchronizer.WaitAny();
+                completedTaskIndex = Array.FindIndex(tasks, t => t.HasCompleted);
             }
 
             if (cancelUnfinishedTasks)
             {
-                foreach (var task in tasks)
-                {
-                    task.Cancel();
-                }
+                PoormansThreadPool.CancelTasksInternal();
             }
 
             return completedTaskIndex;
         }
 
-        protected void Cancel()
-        {
-            _worker.Abort();
-        }
-
-        public bool HasCompleted()
-        {
-            return Thread.CurrentThread != _worker && _worker.Join(TimeSpan.Zero);
-        }
+        public bool HasCompleted { get; private set; }
 
         protected void ThrowAggregateExceptionIfFaulted()
         {
@@ -122,11 +116,9 @@ namespace Euler.Concurrency.PoormansTPL
             }
         }
 
-        protected void CreateTask(Action action)
+        private void CreateTask(Action action)
         {
-            var sychronizer = PoormansSynchronizer.Get();
-
-            _worker = new Thread(() =>
+            PoormansThreadPool.EnqueueTaskInternal(() =>
             {
                 try
                 {
@@ -139,10 +131,10 @@ namespace Euler.Concurrency.PoormansTPL
                 }
                 finally
                 {
-                    sychronizer.Signal();
+                    HasCompleted = true;
+                    _synchronizer.Signal();
                 }
-            })
-            { IsBackground = true };
+            });
         }
     }
 
@@ -152,7 +144,7 @@ namespace Euler.Concurrency.PoormansTPL
 
         public PoormansTask(Func<TResult> action)
         {
-            base.CreateTask(() => _result = action());
+            base.SetTask(() => _result = action());
         }
 
         public TResult Result

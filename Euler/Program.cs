@@ -16,13 +16,13 @@ namespace Euler
         {
             //******** Data Structures & Algorithms ********//
 
-            RunPermutationExample();
+            //RunPermutationExample();
 
             //RunHeapSortExample();
 
             //******** Concurreny ********//
 
-            //RunDeadlockPreventionSimulationExample();
+            RunDeadlockPreventionSimulationExample();
 
             //******** Design Patterns ********//
 

@@ -12,7 +12,7 @@ namespace Euler.Concurrency.PoormansTPL
             Task = task;
         }
 
-        public bool IsCompleted => Task.HasCompleted();
+        public bool IsCompleted => Task.HasCompleted;
 
         public void OnCompleted(Action continuation)
         {
