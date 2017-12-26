@@ -1,12 +1,15 @@
 ﻿using Euler.Algorithms.Permutations;
 using Euler.Concurrency.DeadlockPrevention;
+using Euler.DataStructures.BinaryTree;
 using Euler.DataStructures.Heap;
 using Euler.Patterns.Bridge.Drivers;
 using Euler.Patterns.Proxy.Payment;
 using Euler.Patterns.Proxy.Payment.Entities;
 using Euler.Patterns.Proxy.Payment.Enums;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Euler
 {
@@ -20,9 +23,11 @@ namespace Euler
 
             //RunHeapSortExample();
 
+            RunGoConcurrentTreeWalkExercise();
+
             //******** Concurreny ********//
 
-            RunDeadlockPreventionSimulationExample();
+            // RunDeadlockPreventionSimulationExample();
 
             //******** Design Patterns ********//
 
@@ -31,6 +36,53 @@ namespace Euler
             // RunPaymentProxyExample();
 
             Console.ReadLine();
+        }
+
+        private static void RunGoConcurrentTreeWalkExercise()
+        {
+            // https://tour.golang.org/concurrency/8
+
+            var tree1 = new Tree<int>();
+            var tree2 = new Tree<int>();
+
+            for (var i = 1; i <= 10; i++)
+            {
+                tree1.Add(i);
+                tree2.Add(i << 1);
+            }
+            
+            Console.WriteLine($"IsSame: {IsSame(tree1, tree1)}");
+            Console.WriteLine($"IsSame: {IsSame(tree1, tree2)}");
+
+            Console.WriteLine();
+        }
+
+        private static bool IsSame(Tree<int> t1, Tree<int> t2)
+        {
+            // I have set the Bounded Capacity to 1 to ensure that 
+            // we only producer and consume one request at a time.
+
+            var ch1 = new BlockingCollection<int>(1);
+            var ch2 = new BlockingCollection<int>(1);
+
+            Task.Run(() => Tree<int>.InOrderWalk(t1.Root, value =>
+            {
+                ch1.Add(value);
+            }));
+
+            Task.Run(() => Tree<int>.InOrderWalk(t2.Root, value =>
+            {
+                ch2.Add(value);
+            }));
+
+            var flag = false;
+
+            for (var i = 0; i < t1.Count; i++)
+            {
+                flag = ch1.Take() == ch2.Take();
+            }
+
+            return flag;
         }
 
         private static void RunPermutationExample()
@@ -50,7 +102,7 @@ namespace Euler
             Console.WriteLine("Heap");
             Console.WriteLine("====");
             Console.WriteLine(heap);
-            
+
             Console.WriteLine();
 
             Console.WriteLine("Sorted");

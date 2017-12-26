@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryTree\Tree.cs" />
+    <Compile Include="BinaryTree\TreeNode.cs" />
     <Compile Include="Heap\Heap.cs" />
     <Compile Include="Heap\IHeapCondition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
