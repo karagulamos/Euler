@@ -71,14 +71,13 @@ namespace Euler
             var channel2 = new BlockingCollection<int>(1);
             PoormansTask.Run(() => tree2.Walk(value => channel2.Add(value)));
 
-            var flag = false;
-
             for (var i = 0; i < tree1.Count; i++)
             {
-                flag = channel1.Take() == channel2.Take();
+                if (channel1.Take() != channel2.Take())
+                    return false;
             }
 
-            return flag;
+            return true;
         }
 
         private static void RunPermutationExample()
