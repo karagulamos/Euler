@@ -1,5 +1,6 @@
 ﻿using Euler.Algorithms.Permutations;
 using Euler.Concurrency.DeadlockPrevention;
+using Euler.Concurrency.PoormansTPL;
 using Euler.DataStructures.BinaryTree;
 using Euler.DataStructures.Heap;
 using Euler.Patterns.Bridge.Drivers;
@@ -9,7 +10,6 @@ using Euler.Patterns.Proxy.Payment.Enums;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Euler
 {
@@ -57,23 +57,23 @@ namespace Euler
             Console.WriteLine();
         }
 
-        private static bool IsSame(Tree<int> t1, Tree<int> t2)
+        private static bool IsSame(Tree<int> tree1, Tree<int> tree2)
         {
-            if(t1.Count != t2.Count)
+            if(tree1.Count != tree2.Count)
                 throw new InvalidOperationException("To avoid a deadlock, both trees have to be equal.");
 
             // I've set the Bounded Capacities to 1 to ensure that 
             // we only produce and consume one request at a time.
 
             var channel1 = new BlockingCollection<int>(1);
-            Task.Run(() => t1.Walk(value => channel1.Add(value)));
+            PoormansTask.Run(() => tree1.Walk(value => channel1.Add(value)));
 
             var channel2 = new BlockingCollection<int>(1);
-            Task.Run(() => t2.Walk(value => channel2.Add(value)));
+            PoormansTask.Run(() => tree2.Walk(value => channel2.Add(value)));
 
             var flag = false;
 
-            for (var i = 0; i < t1.Count; i++)
+            for (var i = 0; i < tree1.Count; i++)
             {
                 flag = channel1.Take() == channel2.Take();
             }

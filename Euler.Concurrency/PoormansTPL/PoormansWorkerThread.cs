@@ -46,7 +46,6 @@ namespace Euler.Concurrency.PoormansTPL
                 try
                 {
                     IsBusy = false;
-                    Thread.Yield();
                     Thread.Sleep(idleTime);
                 }
                 catch { /* ignored */ }
@@ -55,13 +54,13 @@ namespace Euler.Concurrency.PoormansTPL
 
         internal void WakeUp()
         {
-            if (_workerThread.ThreadState == ThreadState.WaitSleepJoin)
+            if (_workerThread?.ThreadState == ThreadState.WaitSleepJoin)
                 _workerThread.Interrupt();
 
             IsBusy = true;
         }
 
-        internal void Shutdown()
+        internal void Shutdown(bool waitForThreadToFinish = false)
         {
             if (_workerThread == null) return;
 
@@ -72,7 +71,10 @@ namespace Euler.Concurrency.PoormansTPL
             {
                 _workerThread.Interrupt();
             }
-            _workerThread.Join();
+
+            if (waitForThreadToFinish)
+                _workerThread.Join();
+
             _workerThread = null;
         }
 

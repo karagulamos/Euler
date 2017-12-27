@@ -23,8 +23,8 @@ namespace Euler.Concurrency.PoormansTPL
                 break;
             }
 
-            if (_workerThreads.Count > MinimumWorkersAllowed 
-                && foundIdleWorkerToPerformTask 
+            if (_workerThreads.Count > MinimumWorkersAllowed
+                && foundIdleWorkerToPerformTask
                 || _workerThreads.Count >= MaximumWorkersAllowed)
                 return;
 
@@ -59,7 +59,6 @@ namespace Euler.Concurrency.PoormansTPL
                 {
                     try
                     {
-                        Thread.Yield();
                         Thread.Sleep(idleTime);
                     }
                     catch { /* ignore */ }
@@ -67,7 +66,7 @@ namespace Euler.Concurrency.PoormansTPL
             }
         }
 
-        public void Shutdown()
+        public void Shutdown(bool waitToFinish = false)
         {
             _managerThreadCanRun = false;
 
@@ -78,12 +77,11 @@ namespace Euler.Concurrency.PoormansTPL
                 _managerThread.Interrupt();
             }
 
-            _managerThread.Join();
             _managerThread = null;
 
             foreach (var workerThread in _workerThreads.Keys)
             {
-                workerThread.Shutdown();
+                workerThread.Shutdown(waitToFinish);
             }
 
             _workerThreads.Clear();
