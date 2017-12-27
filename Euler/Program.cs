@@ -63,7 +63,7 @@ namespace Euler
                 throw new InvalidOperationException("To avoid a deadlock, both trees have to be equal.");
 
             // I've set the Bounded Capacities to 1 to ensure that 
-            // we only produce and consume one request at a time.
+            // we only produce and consume both requests at a time.
 
             var channel1 = new BlockingCollection<int>(1);
             PoormansTask.Run(() => tree1.Walk(value => channel1.Add(value)));
