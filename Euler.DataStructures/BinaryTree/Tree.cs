@@ -58,23 +58,18 @@ namespace Euler.DataStructures.BinaryTree
 
         public IEnumerator<TKey> GetEnumerator()
         {
-            return Walk();
+            return InOrderTraversal(_root);
 
             //var values = new List<TKey>();
             //Walk(key => values.Add(key));
             //return values.GetEnumerator();
         }
 
-        public IEnumerator<TKey> Walk()
-        {
-            return InOrderTraversal(_root);
-        }
-
         private static IEnumerator<TKey> InOrderTraversal(TreeNode<TKey> currentNode)
         {
             if (currentNode == null) yield break;
 
-            var nodes = new Stack<TreeNode<TKey>>(new[] { currentNode });            
+            var nodes = new Stack<TreeNode<TKey>>(new[] { currentNode });
             var visitLeft = true;
 
             while (nodes.Count > 0)
@@ -99,11 +94,18 @@ namespace Euler.DataStructures.BinaryTree
 
         private static void InOrderTraversal(TreeNode<TKey> currentNode, Action<TKey> action)
         {
-            if (currentNode == null) return;
+            var enumerator = InOrderTraversal(currentNode);
 
-            InOrderTraversal(currentNode.Left, action);
-            action(currentNode.Value);
-            InOrderTraversal(currentNode.Right, action);
+            while (enumerator.MoveNext())
+            {
+                action(enumerator.Current);
+            }
+
+            //if (currentNode == null) return;
+
+            //InOrderTraversal(currentNode.Left, action);
+            //action(currentNode.Value);
+            //InOrderTraversal(currentNode.Right, action);
         }
     }
 }
