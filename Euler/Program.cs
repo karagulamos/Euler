@@ -1,4 +1,5 @@
-﻿using Euler.Algorithms.Permutations;
+﻿using Euler.Algorithms.Encoding;
+using Euler.Algorithms.Permutations;
 using Euler.Concurrency.DeadlockPrevention;
 using Euler.Concurrency.PoormansTPL;
 using Euler.DataStructures.BinaryTree;
@@ -23,6 +24,8 @@ namespace Euler
 
             //RunHeapSortExample();
 
+            RunRotEnconder();
+
             RunGoConcurrentTreeWalkExercise();
 
             //******** Concurreny ********//
@@ -36,6 +39,16 @@ namespace Euler
             // RunPaymentProxyExample();
 
             Console.ReadLine();
+        }
+
+        private static void RunRotEnconder()
+        {
+            // https://tour.golang.org/methods/23
+
+            var enconder = RotEnconder.Get(13);
+            Console.WriteLine(enconder.Transform("Lbh penpxrq gur pbqr!"));
+
+            Console.WriteLine();
         }
 
         private static void RunGoConcurrentTreeWalkExercise()
