@@ -60,15 +60,12 @@ namespace Euler
         private static bool IsSame(Tree<int> tree1, Tree<int> tree2)
         {
             if(tree1.Count != tree2.Count)
-                throw new InvalidOperationException("To avoid a deadlock, both trees have to be equal.");
+                throw new InvalidOperationException("Both trees have to be equal. Otherwise, this code will deadlock.");
 
-            // I've set the Bounded Capacities to 1 to ensure that 
-            // we only produce and consume both requests at a time.
-
-            var channel1 = new BlockingCollection<int>(1);
+            var channel1 = new BlockingCollection<int>();
             PoormansTask.Run(() => tree1.Walk(value => channel1.Add(value)));
 
-            var channel2 = new BlockingCollection<int>(1);
+            var channel2 = new BlockingCollection<int>();
             PoormansTask.Run(() => tree2.Walk(value => channel2.Add(value)));
 
             for (var i = 0; i < tree1.Count; i++)
