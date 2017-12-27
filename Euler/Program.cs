@@ -45,7 +45,7 @@ namespace Euler
             var tree1 = new Tree<int>();
             var tree2 = new Tree<int>();
 
-            for (var i = 1; i <= 100000; i++)
+            for (var i = 1; i <= 10; i++)
             {
                 tree1.Add(i);
                 tree2.Add(i << 1);
