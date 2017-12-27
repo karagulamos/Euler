@@ -92,20 +92,20 @@ namespace Euler.DataStructures.BinaryTree
             InOrderTraversal(_root, action);
         }
 
-        private static void InOrderTraversal(TreeNode<TKey> currentNode, Action<TKey> action)
+        private static void InOrderTraversal(TreeNode<TKey> currentNode, Action<TKey> process)
         {
             var enumerator = InOrderTraversal(currentNode);
 
             while (enumerator.MoveNext())
             {
-                action(enumerator.Current);
+                process(enumerator.Current);
             }
 
             //if (currentNode == null) return;
 
-            //InOrderTraversal(currentNode.Left, action);
-            //action(currentNode.Value);
-            //InOrderTraversal(currentNode.Right, action);
+            //InOrderTraversal(currentNode.Left, process);
+            //process(currentNode.Value);
+            //InOrderTraversal(currentNode.Right, process);
         }
     }
 }
