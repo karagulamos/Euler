@@ -66,18 +66,10 @@ namespace Euler
             // we only produce and consume one request at a time.
 
             var channel1 = new BlockingCollection<int>(1);
-
-            Task.Factory.StartNew(channel => t1.Walk(value =>
-            {
-                ((BlockingCollection<int>)channel).Add(value);
-            }), channel1);
+            Task.Run(() => t1.Walk(value => channel1.Add(value)));
 
             var channel2 = new BlockingCollection<int>(1);
-
-            Task.Factory.StartNew(channel => t2.Walk(value =>
-            {
-                ((BlockingCollection<int>)channel).Add(value);
-            }), channel2);
+            Task.Run(() => t2.Walk(value => channel2.Add(value)));
 
             var flag = false;
 
