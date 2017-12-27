@@ -24,7 +24,7 @@ namespace Euler
 
             //RunHeapSortExample();
 
-            RunRotEnconder();
+            //RunRotEnconder();
 
             RunGoConcurrentTreeWalkExercise();
 

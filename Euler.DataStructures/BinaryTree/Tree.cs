@@ -23,29 +23,25 @@ namespace Euler.DataStructures.BinaryTree
             Count++;
         }
 
-        private static void Add(TreeNode<TKey> root, TKey value)
+        private static void Add(TreeNode<TKey> currentNode, TKey value)
         {
             while (true)
             {
-                if (root.Value.CompareTo(value) > 0)
-                {
-                    if (root.Left == null)
-                    {
-                        root.Left = new TreeNode<TKey>(value);
-                        return;
-                    }
+                var addingToLeft = currentNode.Value.CompareTo(value) > 0;
 
-                    root = root.Left;
-                    continue;
+                if (addingToLeft && currentNode.Left == null)
+                {
+                    currentNode.Left = new TreeNode<TKey>(value);
+                    break;
                 }
 
-                if (root.Right == null)
+                if (!addingToLeft && currentNode.Right == null)
                 {
-                    root.Right = new TreeNode<TKey>(value);
-                    return;
+                    currentNode.Right = new TreeNode<TKey>(value);
+                    break;
                 }
 
-                root = root.Right;
+                currentNode = addingToLeft ? currentNode.Left : currentNode.Right;
             }
         }
 
@@ -77,11 +73,11 @@ namespace Euler.DataStructures.BinaryTree
             if (currentNode == null) yield break;
 
             var nodes = new Stack<TreeNode<TKey>>(new[] { currentNode });
-            var visitLeft = true;
+            var visitingLeft = true;
 
             while (nodes.Count > 0)
             {
-                while (visitLeft && currentNode.Left != null)
+                while (visitingLeft && currentNode.Left != null)
                 {
                     nodes.Push(currentNode);
                     currentNode = currentNode.Left;
@@ -89,7 +85,7 @@ namespace Euler.DataStructures.BinaryTree
 
                 yield return currentNode.Value;
 
-                visitLeft = currentNode.Right != null;
+                visitingLeft = currentNode.Right != null;
                 currentNode = currentNode.Right ?? nodes.Pop();
             }
         }
