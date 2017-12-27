@@ -62,8 +62,9 @@ namespace Euler
             if(t1.Count != t2.Count)
                 throw new InvalidOperationException("To avoid a deadlock, both trees have to be equal.");
 
-            // I have set the Bounded Capacity to 1 to ensure that 
+            // I've set the Bounded Capacities to 1 to ensure that 
             // we only produce and consume one request at a time.
+
             var channel1 = new BlockingCollection<int>(1);
 
             Task.Factory.StartNew(channel => t1.Walk(value =>
