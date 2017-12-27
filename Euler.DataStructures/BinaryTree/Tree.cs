@@ -5,19 +5,19 @@ using System.Collections.Generic;
 namespace Euler.DataStructures.BinaryTree
 {
     public class Tree<TKey> : IEnumerable<TKey> 
-    where TKey : IComparable<TKey>
+    where TKey : IComparable
     {
-        public TreeNode<TKey> Root { get; private set; }
+        private TreeNode<TKey> _root;
 
         public void Add(TKey value)
         {
-            if (Root == null)
+            if (_root == null)
             {
-                Root = new TreeNode<TKey>(value);
+                _root = new TreeNode<TKey>(value);
             }
             else
             {
-                Add(Root, value);
+                Add(_root, value);
             }
 
             Count++;
@@ -49,24 +49,6 @@ namespace Euler.DataStructures.BinaryTree
             }
         }
         
-        public bool Contains(TKey item)
-        {
-            var current = Root;
-
-            while (current != null)
-            {
-                if (current.Value.CompareTo(item) == 0)
-                    return true;
-
-                current =
-                    current.Value.CompareTo(item) > 0
-                    ? current.Left
-                    : current.Right;
-            }
-
-            return false;
-        }
-        
         public int Count { get; private set; }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -77,18 +59,23 @@ namespace Euler.DataStructures.BinaryTree
         public IEnumerator<TKey> GetEnumerator()
         {
             var values = new List<TKey>();
-            InOrderWalk(Root, key => values.Add(key));
+            Walk(key => values.Add(key));
             return values.GetEnumerator();
         }
 
-        public static void InOrderWalk(TreeNode<TKey> root, Action<TKey> action)
+        public void Walk(Action<TKey> action)
+        {
+            InOrderTraversal(_root, action);
+        }
+
+        private static void InOrderTraversal(TreeNode<TKey> root, Action<TKey> action)
         {
             if (root == null)
                 return;
 
-            InOrderWalk(root.Left, action);
+            InOrderTraversal(root.Left, action);
             action(root.Value);
-            InOrderWalk(root.Right, action);
+            InOrderTraversal(root.Right, action);
         }
     }
 }
