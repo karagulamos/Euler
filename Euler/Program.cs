@@ -10,7 +10,6 @@ using Euler.Patterns.Proxy.Payment.Enums;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Euler
 {
@@ -61,7 +60,7 @@ namespace Euler
         private static bool IsSame(Tree<int> tree1, Tree<int> tree2)
         {
             if (tree1.Count != tree2.Count)
-                throw new InvalidOperationException("Both trees have to be equal. Otherwise, this code will deadlock.");
+                throw new ArgumentException("Both trees have to be equal. Otherwise, this code will deadlock.");
 
             var channel1 = new BlockingCollection<int>(1);
             PoormansTask.Run(() => tree1.Walk(item => channel1.Add(item)));
