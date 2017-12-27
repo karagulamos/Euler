@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Euler.DataStructures.BinaryTree
 {
-    public class Tree<TKey> : IEnumerable<TKey> 
+    public class Tree<TKey> : IEnumerable<TKey>
     where TKey : IComparable
     {
         private TreeNode<TKey> _root;
@@ -48,7 +48,7 @@ namespace Euler.DataStructures.BinaryTree
                 root = root.Right;
             }
         }
-        
+
         public int Count { get; private set; }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -58,9 +58,38 @@ namespace Euler.DataStructures.BinaryTree
 
         public IEnumerator<TKey> GetEnumerator()
         {
-            var values = new List<TKey>();
-            Walk(key => values.Add(key));
-            return values.GetEnumerator();
+            return Walk();
+
+            //var values = new List<TKey>();
+            //Walk(key => values.Add(key));
+            //return values.GetEnumerator();
+        }
+
+        public IEnumerator<TKey> Walk()
+        {
+            return InOrderTraversal(_root);
+        }
+
+        private static IEnumerator<TKey> InOrderTraversal(TreeNode<TKey> currentNode)
+        {
+            if (currentNode == null) yield break;
+
+            var nodes = new Stack<TreeNode<TKey>>(new[] { currentNode });            
+            var visitLeft = true;
+
+            while (nodes.Count > 0)
+            {
+                while (visitLeft && currentNode.Left != null)
+                {
+                    nodes.Push(currentNode);
+                    currentNode = currentNode.Left;
+                }
+
+                yield return currentNode.Value;
+
+                visitLeft = currentNode.Right != null;
+                currentNode = currentNode.Right ?? nodes.Pop();
+            }
         }
 
         public void Walk(Action<TKey> action)
@@ -68,14 +97,13 @@ namespace Euler.DataStructures.BinaryTree
             InOrderTraversal(_root, action);
         }
 
-        private static void InOrderTraversal(TreeNode<TKey> root, Action<TKey> action)
+        private static void InOrderTraversal(TreeNode<TKey> currentNode, Action<TKey> action)
         {
-            if (root == null)
-                return;
+            if (currentNode == null) return;
 
-            InOrderTraversal(root.Left, action);
-            action(root.Value);
-            InOrderTraversal(root.Right, action);
+            InOrderTraversal(currentNode.Left, action);
+            action(currentNode.Value);
+            InOrderTraversal(currentNode.Right, action);
         }
     }
 }

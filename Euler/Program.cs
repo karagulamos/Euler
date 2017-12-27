@@ -45,7 +45,7 @@ namespace Euler
             var tree1 = new Tree<int>();
             var tree2 = new Tree<int>();
 
-            for (var i = 1; i <= 10; i++)
+            for (var i = 1; i <= 100000; i++)
             {
                 tree1.Add(i);
                 tree2.Add(i << 1);
@@ -62,11 +62,17 @@ namespace Euler
             if(tree1.Count != tree2.Count)
                 throw new InvalidOperationException("Both trees have to be equal. Otherwise, this code will deadlock.");
 
-            var channel1 = new BlockingCollection<int>();
-            PoormansTask.Run(() => tree1.Walk(value => channel1.Add(value)));
+            var channel1 = new BlockingCollection<int>(1);
+            PoormansTask.Run(delegate
+            {
+                foreach (var item in tree1) channel1.Add(item);
+            });
 
-            var channel2 = new BlockingCollection<int>();
-            PoormansTask.Run(() => tree2.Walk(value => channel2.Add(value)));
+            var channel2 = new BlockingCollection<int>(1);
+            PoormansTask.Run(delegate
+            {
+                foreach (var item in tree2) channel2.Add(item);
+            });
 
             for (var i = 0; i < tree1.Count; i++)
             {
