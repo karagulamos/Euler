@@ -13,7 +13,7 @@ namespace Euler.Patterns.Bridge.Drivers
 
         private IConnectionDriver Driver { get; set; }
 
-        public IConnection GetConnection(string address)
+        public IConnection CreateConnection(string address)
         {
             return new Connection(Driver) { Address = address };
         }

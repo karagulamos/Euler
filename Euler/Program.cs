@@ -24,7 +24,7 @@ namespace Euler
 
             //RunHeapSortExample();
 
-            //RunRotEnconder();
+            RunGoRotEnconderExercise();
 
             RunGoConcurrentTreeWalkExercise();
 
@@ -41,11 +41,11 @@ namespace Euler
             Console.ReadLine();
         }
 
-        private static void RunRotEnconder()
+        private static void RunGoRotEnconderExercise()
         {
             // https://tour.golang.org/methods/23
 
-            var enconder = RotEnconder.Get(13);
+            var enconder = RotEnconder.Create(13);
             Console.WriteLine(enconder.Transform("Lbh penpxrq gur pbqr!"));
 
             Console.WriteLine();
@@ -55,10 +55,10 @@ namespace Euler
         {
             // https://tour.golang.org/concurrency/8
 
-            var tree1 = new Tree<int>();
-            var tree2 = new Tree<int>();
+            var tree1 = Tree<int>.Create();
+            var tree2 = Tree<int>.Create();
 
-            for (var i = 1; i <= 10; i++)
+            for (var i = 1; i <= 1000; i++)
             {
                 tree1.Add(i);
                 tree2.Add(i << 1);
@@ -66,6 +66,10 @@ namespace Euler
             
             Console.WriteLine($"IsSame: {IsSame(tree1, tree1)}");
             Console.WriteLine($"IsSame: {IsSame(tree1, tree2)}");
+
+            var tree3 = Tree<int>.Create(tree2);
+
+            Console.WriteLine($"IsSame: {IsSame(tree2, tree3)}");
 
             Console.WriteLine();
         }
@@ -146,7 +150,7 @@ namespace Euler
 
             driverManager.Use(new SqlServerConnectionDriver());
 
-            using (IConnection connection = driverManager.GetConnection("tcp://127.0.0.1"))
+            using (IConnection connection = driverManager.CreateConnection("tcp://127.0.0.1"))
             {
                 connection.ExecuteQuery("select * from table");
                 Console.WriteLine(connection.Result);
@@ -156,7 +160,7 @@ namespace Euler
 
             driverManager.Use(new OracleConnectionDriver());
 
-            using (IConnection connection = driverManager.GetConnection("tcp://192.168.1.8"))
+            using (IConnection connection = driverManager.CreateConnection("tcp://192.168.1.8"))
             {
                 connection.ExecuteQuery("select * from table");
                 Console.WriteLine(connection.Result);
@@ -173,7 +177,7 @@ namespace Euler
             // this phase in order to reduce latency, increase throughput and promote 
             // correctness. Also, we aren't taking advantage of .NET's TPL APIs.
 
-            IProcessor processorProxy = ProcessorProxy.Get();
+            IProcessor processorProxy = ProcessorProxy.Create();
 
             IEnumerable<Transaction> transactions = LoadPendingTransactionsFromDb();
 

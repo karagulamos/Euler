@@ -17,7 +17,7 @@
             return new string(characters);
         }
 
-        private static void Rotate(ref char character, byte rotations)
+        protected static void Rotate(ref char character, byte rotations)
         {
             char addend = 'A', divisor = 'Z';
 
@@ -36,12 +36,12 @@
             character = rotated;
         }
 
-        public static RotEnconder Get(byte rotations)
+        public static RotEnconder Create(byte rotations)
         {
             return new RotEnconder(rotations);
         }
 
-        private RotEnconder(byte rotations)
+        protected RotEnconder(byte rotations)
         {
             _rotations = rotations;
         }

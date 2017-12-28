@@ -5,9 +5,14 @@ using System.Collections.Generic;
 namespace Euler.DataStructures.BinaryTree
 {
     public class Tree<TKey> : IEnumerable<TKey>
-    where TKey : IComparable
+    where TKey : IComparable<TKey>
     {
-        private TreeNode<TKey> _root;
+        public static Tree<TKey> Create() => new Tree<TKey>();
+
+        public static Tree<TKey> Create(IEnumerable<TKey> keys)
+        {
+            return new Tree<TKey>(keys);
+        }
 
         public void Add(TKey value)
         {
@@ -58,15 +63,9 @@ namespace Euler.DataStructures.BinaryTree
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public IEnumerator<TKey> GetEnumerator()
-        {
-            return InOrderTraversal(_root);
-        }
+        public IEnumerator<TKey> GetEnumerator() => InOrderTraversal(_root);
 
         private static IEnumerator<TKey> InOrderTraversal(TreeNode<TKey> currentNode)
         {
@@ -89,5 +88,15 @@ namespace Euler.DataStructures.BinaryTree
                 currentNode = currentNode.Right ?? nodes.Pop();
             }
         }
+
+        protected Tree() { }
+
+        protected Tree(IEnumerable<TKey> keys)
+        {
+            foreach (var key in keys)
+                Add(key);
+        }
+
+        private TreeNode<TKey> _root;
     }
 }

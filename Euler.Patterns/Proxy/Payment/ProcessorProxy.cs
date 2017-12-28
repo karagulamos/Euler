@@ -38,7 +38,7 @@ namespace Euler.Patterns.Proxy.Payment
             processor.Deposit(transaction);
         }
 
-        public static IProcessor Get() => new ProcessorProxy();
+        public static IProcessor Create() => new ProcessorProxy();
 
         private static IProcessor GetProcessor(Processor processor)
         {
