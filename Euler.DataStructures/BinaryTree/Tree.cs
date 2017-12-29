@@ -54,13 +54,8 @@ namespace Euler.DataStructures.BinaryTree
 
         public void Walk(Action<TKey> process)
         {
-            using (var enumerator = GetEnumerator())
-            {
-                while (enumerator.MoveNext())
-                {
-                    process(enumerator.Current);
-                }
-            }
+            foreach (var nodeValue in this)
+                process(nodeValue);
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -72,9 +67,8 @@ namespace Euler.DataStructures.BinaryTree
             if (currentNode == null) yield break;
 
             var nodes = new Stack<TreeNode<TKey>>(new[] { currentNode });
-            var visitingLeft = true;
 
-            while (nodes.Count > 0)
+            for (var visitingLeft = true; nodes.Count > 0;)
             {
                 while (visitingLeft && currentNode.Left != null)
                 {
