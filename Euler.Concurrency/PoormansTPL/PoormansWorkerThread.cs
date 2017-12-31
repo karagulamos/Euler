@@ -8,7 +8,7 @@ namespace Euler.Concurrency.PoormansTPL
     {
         private readonly ConcurrentQueue<Action> _taskQueue;
         private Thread _workerThread;
-        private bool _workerThreadCanRun;
+        private volatile bool _workerThreadCanRun;
 
         internal PoormansWorkerThread(ConcurrentQueue<Action> taskQueue)
         {

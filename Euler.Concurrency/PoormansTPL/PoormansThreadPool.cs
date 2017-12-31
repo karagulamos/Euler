@@ -97,7 +97,7 @@ namespace Euler.Concurrency.PoormansTPL
         private TimeSpan MaximumIdleTime { get; } = TimeSpan.FromSeconds(5);
 
         private Thread _managerThread;
-        private bool _managerThreadCanRun;
+        private volatile bool _managerThreadCanRun;
 
         public PoormansThreadPool(int minimumThreads, int maximumThreads, TimeSpan maximumIdleTimeBeforeRecycle)
         {
