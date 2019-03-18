@@ -68,7 +68,9 @@ namespace Euler.DataStructures.BinaryTree
 
             var nodes = new Stack<TreeNode<TKey>>(new[] { currentNode });
 
-            for (var visitingLeft = true; nodes.Count > 0;)
+            var visitingLeft = true;
+
+            while (nodes.Count > 0)
             {
                 while (visitingLeft && currentNode.Left != null)
                 {

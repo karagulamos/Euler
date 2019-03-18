@@ -77,7 +77,7 @@ namespace Euler.Concurrency.PoormansTPL
         public void Wait()
         {
             _synchronizer.Wait();
-            this.ThrowAggregateExceptionIfFaulted();
+            ThrowAggregateExceptionIfFaulted();
         }
 
         public static int WaitAny(params PoormansTask[] tasks)

@@ -4,6 +4,7 @@ using Euler.Concurrency.DeadlockPrevention;
 using Euler.Concurrency.PoormansTPL;
 using Euler.DataStructures.BinaryTree;
 using Euler.DataStructures.Heap;
+using Euler.DataStructures.Stack.RPNCalculator;
 using Euler.Patterns.Bridge.Drivers;
 using Euler.Patterns.Proxy.Payment;
 using Euler.Patterns.Proxy.Payment.Entities;
@@ -24,13 +25,15 @@ namespace Euler
 
             //RunHeapSortExample();
 
-            RunGoRotEnconderExercise();
+            RunRpnCalculatorExample();
 
-            RunGoConcurrentTreeWalkExercise();
+            // RunGoRotEncoderExercise();
+
+            // RunGoConcurrentTreeWalkExercise();
 
             //******** Concurreny ********//
 
-            // RunDeadlockPreventionSimulationExample();
+            //RunDeadlockPreventionSimulationExample();
 
             //******** Design Patterns ********//
 
@@ -41,12 +44,31 @@ namespace Euler
             Console.ReadLine();
         }
 
-        private static void RunGoRotEnconderExercise()
+        private static void RunRpnCalculatorExample()
+        {
+            Console.WriteLine("Enter Infix Expression: ");
+
+            var infix = Calculator.FormatExpression(Console.ReadLine());
+
+            Console.WriteLine("Infix: " + infix);
+
+            var converter = new InfixToPostfixConverter();
+            var postfix = converter.Convert(infix);
+
+            Console.WriteLine("Postfix: " + Calculator.ConvertToString(postfix));
+
+            var calculator = Calculator.Create(CalculatorType.Postfix);
+            var result = calculator.Evaluate(postfix);
+
+            Console.WriteLine("Result: " + result);
+        }
+
+        private static void RunGoRotEncoderExercise()
         {
             // https://tour.golang.org/methods/23
 
-            var enconder = RotEnconder.Create(13);
-            Console.WriteLine(enconder.Transform("Lbh penpxrq gur pbqr!"));
+            var encoder = RotEnconder.Create(13);
+            Console.WriteLine(encoder.Transform("Lbh penpxrq gur pbqr!"));
 
             Console.WriteLine();
         }
@@ -63,7 +85,7 @@ namespace Euler
                 tree1.Add(i);
                 tree2.Add(i << 1);
             }
-            
+
             Console.WriteLine($"IsSame: {IsSame(tree1, tree1)}");
             Console.WriteLine($"IsSame: {IsSame(tree1, tree2)}");
 

@@ -45,6 +45,10 @@
     <Compile Include="Heap\Heap.cs" />
     <Compile Include="Heap\IHeapCondition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stack\RPNCalculator\Calculator.cs" />
+    <Compile Include="Stack\RPNCalculator\CalculatorType.cs" />
+    <Compile Include="Stack\RPNCalculator\InfixToPostfixConverter.cs" />
+    <Compile Include="Stack\RPNCalculator\PostfixCalculator.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
